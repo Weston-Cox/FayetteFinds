@@ -34,7 +34,6 @@ class LoginPageActivity : AppCompatActivity() {
         etEmail = findViewById(R.id.etEmail)
         etPassword = findViewById(R.id.etPassword)
 
-//        auth = Firebase.auth
         findViewById<Button>(R.id.btnSignUp).setOnClickListener {
             loginUser(etEmail.text.toString(), etPassword.text.toString())
         }
@@ -42,7 +41,7 @@ class LoginPageActivity : AppCompatActivity() {
             loginUser(etEmail.text.toString(), etPassword.text.toString())
         }
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.login_page)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
