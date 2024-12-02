@@ -9,7 +9,7 @@
     tools:context=".ListBusinessCards.ListBusinessCardsActivity"
     android:background="@color/white">
 
-    <SearchView
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="60dp"
