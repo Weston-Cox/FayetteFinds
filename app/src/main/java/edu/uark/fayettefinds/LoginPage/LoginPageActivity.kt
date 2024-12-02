@@ -36,10 +36,10 @@ class LoginPageActivity : AppCompatActivity() {
 
 //        auth = Firebase.auth
         findViewById<Button>(R.id.btnSignUp).setOnClickListener {
-//            createUserWithUsernamePassword(etEmail.text.toString(), etPassword.text.toString())
+            loginUser(etEmail.text.toString(), etPassword.text.toString())
         }
         findViewById<Button>(R.id.btnLogin).setOnClickListener{
-//            logInWithUsernameAndPassword(etEmail.text.toString(), etPassword.text.toString(), auth)
+            loginUser(etEmail.text.toString(), etPassword.text.toString())
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
