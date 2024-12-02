@@ -7,18 +7,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ListBusinessCards.ListBusinessCardsActivity"
-    android:background="@color/white">
+    android:background="@color/surface">
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
         android:background="@drawable/round_search_bar"
+        android:textColorHint="@android:color/black"
+        android:elevation="12dp"
         app:layout_constraintBottom_toTopOf="@+id/recyclerview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:queryHint="Search for businesses..."
-        android:textColorHint="@android:color/black" />
+        app:queryHint="Search for businesses..." />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
