@@ -32,7 +32,7 @@ public abstract class FayetteFindsRoomDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     FayetteFindsRoomDatabase::class.java,
-                    "todolist_database"
+                    "businesscard_database"
                 )
                     .addCallback(FayetteFindsDatabaseCallback(scope))
                     .build()

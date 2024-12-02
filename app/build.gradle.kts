@@ -55,6 +55,8 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.activity)
     implementation(libs.androidbrowserhelper)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     annotationProcessor(libs.androidx.room.compiler)
 
     // To use Kotlin Symbol Processing (KSP)
