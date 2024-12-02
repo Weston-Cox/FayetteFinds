@@ -1,6 +1,7 @@
 package edu.uark.fayettefinds.Repository
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -43,7 +44,7 @@ public abstract class FayetteFindsRoomDatabase : RoomDatabase() {
         }
     }
 
-    private class FayetteFindsDatabaseCallback(
+    private open class FayetteFindsDatabaseCallback(
         private val scope: CoroutineScope
     ) : RoomDatabase.Callback() {
 
@@ -80,7 +81,9 @@ public abstract class FayetteFindsRoomDatabase : RoomDatabase() {
                         website = faker.internet().domainName(),
                         address = faker.address().fullAddress()
                     )
+
                 )
+                Log.d("Business Added with business Name:", "Business Name: ${businesses[i].title}")
             }
         }
     }
