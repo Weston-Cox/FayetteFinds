@@ -14,8 +14,6 @@ data class BusinessCard(
     @ColumnInfo(name="phone") var phone:String,
     @ColumnInfo(name="email") var email:String,
     @ColumnInfo(name="website") var website:String,
-    @ColumnInfo(name="address") var address:String,
-    @ColumnInfo(name="latitude") var latitude:Double,
-    @ColumnInfo(name="longitude") var longitude:Double
+    @ColumnInfo(name="address") var address:String
 
 )

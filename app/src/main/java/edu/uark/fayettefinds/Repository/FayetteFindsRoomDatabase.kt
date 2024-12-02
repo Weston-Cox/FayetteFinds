@@ -5,8 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.github.javafaker.Faker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 // Annotates class to be a Room Database with a table (entity) of the ToDoItem class
 @Database(entities = arrayOf(BusinessCard::class), version = 1, exportSchema = false)
@@ -45,7 +47,7 @@ public abstract class FayetteFindsRoomDatabase : RoomDatabase() {
         private val scope: CoroutineScope
     ) : RoomDatabase.Callback() {
 
-        override fun onCreate(db: SupportSQLiteDatabase) {``
+        override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)
             INSTANCE?.let { database ->
                 scope.launch {
@@ -56,10 +58,30 @@ public abstract class FayetteFindsRoomDatabase : RoomDatabase() {
 
         suspend fun populateDatabase(businessCardDao: BusinessCardDao) {
             // Delete all content here.
+//            businessCardDao.deleteAll()
+//
+//            // Add sample words.
+//            val toDoItem = BusinessCard(null,"", "", "", "", "", "", "", "", 0.0, 0.0, )
+//            businessCardDao.insert(toDoItem)
             businessCardDao.deleteAll()
+            val faker = Faker()
+            val businesses = mutableListOf<BusinessCard>()
 
-            // Add sample words.
-            val toDoItem = BusinessCard(null,"", "", "", "", "", "", "", "", 0.0, 0.0, )
-            businessCardDao.insert(toDoItem)
+            for (i in 1..8) {
+                businesses.add(
+                    BusinessCard(
+                        id = null,
+                        businessName = faker.company().name(),
+                        typeOfBusiness = faker.company().industry(),
+                        title = faker.job().title(),
+                        content = faker.lorem().paragraph(),
+                        phone = faker.phoneNumber().phoneNumber(),
+                        email = faker.internet().emailAddress(),
+                        website = faker.internet().domainName(),
+                        address = faker.address().fullAddress()
+                    )
+                )
+            }
         }
     }
+}

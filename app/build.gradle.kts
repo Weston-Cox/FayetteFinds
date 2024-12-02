@@ -48,6 +48,8 @@ dependencies {
     // Dependencies for working with Architecture components
     // You'll probably have to update the version numbers in build.gradle (Project)
 
+    //kotlin faker implementation
+    implementation(libs.javafaker)
 
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
