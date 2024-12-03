@@ -59,12 +59,17 @@ public abstract class FayetteFindsRoomDatabase : RoomDatabase() {
         }
 
         suspend fun populateDatabase(businessCardDao: BusinessCardDao) {
-            // Delete all description here.
-//            businessCardDao.deleteAll()
-//
-//            // Add sample words.
-//            val toDoItem = BusinessCard(null,"", "", "", "", "", "", "", "", 0.0, 0.0, )
-//            businessCardDao.insert(toDoItem)
+            val addresses = arrayOf(
+                "459 N Campus Walk, Fayetteville, AR 72701",
+                "660 M.L.K. Jr Blvd, Fayetteville, AR 72701",
+                "1325 N Shiloh Dr, Fayetteville, AR 72704",
+                "5 S Happy Hollow Rd, Fayetteville, AR 72701",
+                "2615 S School Ave, Fayetteville, AR 72701",
+                "801 W Clydesdale Dr, Fayetteville, AR 72701",
+                "1100 N College Ave, Fayetteville, AR 72703",
+                "4127 W Wedington Dr, Fayetteville, AR 72704"
+            )
+
             val faker = Faker()
 
             for (i in 1..8) {
@@ -77,7 +82,7 @@ public abstract class FayetteFindsRoomDatabase : RoomDatabase() {
                     phone = faker.phoneNumber().phoneNumber(),
                     email = faker.internet().emailAddress(),
                     website = faker.internet().domainName(),
-                    address = faker.address().fullAddress(),
+                    address = addresses[i-1],
 //                    latitude = Random.nextDouble(35.0, 36.0),
 //                    longitude = Random.nextDouble(94.0, 95.0)
                 )
