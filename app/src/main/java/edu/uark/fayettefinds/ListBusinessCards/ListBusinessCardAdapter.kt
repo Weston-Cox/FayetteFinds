@@ -14,11 +14,14 @@ import edu.uark.fayettefinds.Repository.BusinessCard
 class ListBusinessCardAdapter(val onItemClicked:(itemId:Long)->Unit)
     : ListAdapter<BusinessCard, ListBusinessCardAdapter.BusinessCardViewHolder>(BusinessCardComparator()){
 
+        private var originalList: List<BusinessCard> = emptyList()
+        private var filteredList: List<BusinessCard> = emptyList()
 
     //TODO:: Setup listbusinesscard adapter
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusinessCardViewHolder {
             return BusinessCardViewHolder.create(parent)
         }
+
 
     override fun onBindViewHolder(holder: BusinessCardViewHolder, position: Int) {
 //        val current = getItem(position)
@@ -36,6 +39,26 @@ class ListBusinessCardAdapter(val onItemClicked:(itemId:Long)->Unit)
             current.id?.let { it1 -> onItemClicked(it1) }
         }
         holder.bind(current)
+    }
+
+    override fun getItemCount(): Int = filteredList.size
+
+    override fun submitList(list: List<BusinessCard>?) {
+        originalList = list ?: emptyList()
+        filteredList = originalList
+        super.submitList(filteredList)
+    }
+
+    fun filter(query: String) {
+        filteredList = if (query.isEmpty()) {
+            originalList
+        } else
+        {
+            originalList.filter {
+                it.businessName.contains(query, ignoreCase = true)
+            }
+        }
+        super.submitList(filteredList)
     }
 
 

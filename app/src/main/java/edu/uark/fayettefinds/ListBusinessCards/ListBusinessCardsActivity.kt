@@ -26,6 +26,8 @@ class ListBusinessCardsActivity : AppCompatActivity() {
         }
     }
 
+    private lateinit var searchView: androidx.appcompat.widget.SearchView
+
     private val listBusinessCardsViewModel: ListBusinessCardsViewModel by viewModels {
         ListBusinessCardsViewModel.ListBusinessCardsViewModelFactory((application as FayetteFindsApplication).repository)
     }
@@ -66,12 +68,30 @@ class ListBusinessCardsActivity : AppCompatActivity() {
         // Set the recycler view layout to be a linear layout manager with activity context
         recyclerView.layoutManager = LinearLayoutManager(this)
 
+        //Searchview definition
+        searchView = findViewById(R.id.searchView)
+
         listBusinessCardsViewModel.allBusinessCards.observe(this) {
             businesscards ->
             businesscards?.let {
                 adapter.submitList(it.values.toList())
             }
         }
+
+        searchView?.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let { adapter.filter(it) }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let { adapter.filter(it) }
+                return true
+            }
+        })
+
+
+
 
         val fab = findViewById<FloatingActionButton>(R.id.fabAddTask)
         fab.setOnClickListener {
