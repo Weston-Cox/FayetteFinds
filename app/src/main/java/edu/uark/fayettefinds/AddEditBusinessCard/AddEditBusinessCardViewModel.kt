@@ -14,7 +14,7 @@ class AddEditBusinessCardViewModel(private val repository: FayetteFindsRepositor
     val businessCard:LiveData<BusinessCard>
         get() = _businessCard
 
-    fun start(itemId:Int)
+    fun start(itemId:Long)
     {
         viewModelScope.launch {
             repository.allBusinessCards.collect{

@@ -3,7 +3,7 @@ package edu.uark.fayettefinds.Repository
 import kotlinx.coroutines.flow.Flow
 
 class FayetteFindsRepository(private val businessCardDao: BusinessCardDao) {
-    val allBusinessCards: Flow<Map<Int, BusinessCard>> = businessCardDao.getBusinessCards()
+    val allBusinessCards: Flow<Map<Long, BusinessCard>> = businessCardDao.getBusinessCards()
 
 
 

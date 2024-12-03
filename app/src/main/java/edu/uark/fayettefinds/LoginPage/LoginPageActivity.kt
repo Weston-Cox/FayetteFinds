@@ -1,5 +1,6 @@
 package edu.uark.fayettefinds.LoginPage
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -12,7 +13,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import edu.uark.fayettefinds.ListBusinessCards.ListBusinessCardsActivity
 import edu.uark.fayettefinds.R
-import javax.security.auth.callback.PasswordCallback
 
 class LoginPageActivity : AppCompatActivity() {
     private val TAG = "LoginPageActivity"
@@ -31,6 +31,8 @@ class LoginPageActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_login_page)
 
+//        deleteDatabase(this)
+
         etEmail = findViewById(R.id.etEmail)
         etPassword = findViewById(R.id.etPassword)
 
@@ -48,6 +50,11 @@ class LoginPageActivity : AppCompatActivity() {
         }
     }
 
+
+    // DO NOT USE THIS FUNCTION UNLESS YOU NEED TO DELETE THE DATABASE
+    fun deleteDatabase(context: Context) {
+        context.deleteDatabase("businesscard_database")
+    }
 
 
     fun loginUser(email:String, password:String): Unit {

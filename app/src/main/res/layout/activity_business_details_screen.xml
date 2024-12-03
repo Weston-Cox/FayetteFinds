@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -28,7 +28,7 @@
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+            app:layout_constraintTop_toBottomOf="@+id/ivBusinessImage" />
 
         <TextView
             android:id="@+id/tvBusinessName"
@@ -55,7 +55,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tvBusinessName" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/ivBusinessImage"
             android:layout_width="0dp"
             android:layout_height="263dp"
             android:layout_marginTop="10dp"
@@ -95,7 +95,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvContent"
+            android:id="@+id/tvDescription"
             android:layout_width="378dp"
             android:layout_height="167dp"
             android:layout_marginTop="50dp"
@@ -106,7 +106,7 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+            app:layout_constraintTop_toBottomOf="@+id/ivBusinessImage" />
 
         <Button
             android:id="@+id/btnContact"
@@ -121,7 +121,18 @@
             app:iconTint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvContent" />
+            app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerView"
+            android:name="edu.uark.fayettefinds.AddEditBusinessCard.OpenStreetMapFragment"
+            android:layout_width="398dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnContact" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

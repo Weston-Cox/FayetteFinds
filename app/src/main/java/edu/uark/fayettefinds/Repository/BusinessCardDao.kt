@@ -8,7 +8,7 @@ interface BusinessCardDao {
 
     @MapInfo(keyColumn = "id")
     @Query("SELECT * FROM businesscards_table order by id ASC")
-    fun getBusinessCards(): Flow<Map<Int, BusinessCard>>
+    fun getBusinessCards(): Flow<Map<Long, BusinessCard>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(businessCard: BusinessCard)

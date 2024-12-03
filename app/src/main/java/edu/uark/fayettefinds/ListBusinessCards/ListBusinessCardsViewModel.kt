@@ -9,7 +9,7 @@ import edu.uark.fayettefinds.Repository.FayetteFindsRepository
 
 class ListBusinessCardsViewModel(private val repository: FayetteFindsRepository): ViewModel() {
 
-    val allBusinessCards: LiveData<Map<Int, BusinessCard>> = repository.allBusinessCards.asLiveData()
+    val allBusinessCards: LiveData<Map<Long, BusinessCard>> = repository.allBusinessCards.asLiveData()
 
     class ListBusinessCardsViewModelFactory(private val repository: FayetteFindsRepository) : ViewModelProvider.Factory{
         override fun <T: ViewModel> create(modelClass: Class<T>): T{

@@ -9,10 +9,9 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.github.javafaker.Faker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import kotlin.random.Random
 
 // Annotates class to be a Room Database with a table (entity) of the ToDoItem class
-@Database(entities = arrayOf(BusinessCard::class), version = 1, exportSchema = false)
+@Database(entities = arrayOf(BusinessCard::class), version = 2 , exportSchema = false)
 public abstract class FayetteFindsRoomDatabase : RoomDatabase() {
 
     abstract fun businessCardDao(): BusinessCardDao
@@ -36,6 +35,7 @@ public abstract class FayetteFindsRoomDatabase : RoomDatabase() {
                     "businesscard_database"
                 )
                     .addCallback(FayetteFindsDatabaseCallback(scope))
+                    .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
                 // return instance
@@ -46,45 +46,63 @@ public abstract class FayetteFindsRoomDatabase : RoomDatabase() {
 
     private open class FayetteFindsDatabaseCallback(
         private val scope: CoroutineScope
-    ) : RoomDatabase.Callback() {
+    ) : Callback() {
 
         override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)
             INSTANCE?.let { database ->
                 scope.launch {
+//                    database.businessCardDao().deleteAll()
                     populateDatabase(database.businessCardDao())
                 }
             }
         }
 
         suspend fun populateDatabase(businessCardDao: BusinessCardDao) {
-            // Delete all content here.
+            // Delete all description here.
 //            businessCardDao.deleteAll()
 //
 //            // Add sample words.
 //            val toDoItem = BusinessCard(null,"", "", "", "", "", "", "", "", 0.0, 0.0, )
 //            businessCardDao.insert(toDoItem)
-            businessCardDao.deleteAll()
             val faker = Faker()
-            val businesses = mutableListOf<BusinessCard>()
 
             for (i in 1..8) {
-                businesses.add(
-                    BusinessCard(
-                        id = null,
-                        businessName = faker.company().name(),
-                        typeOfBusiness = faker.company().industry(),
-                        title = faker.job().title(),
-                        content = faker.lorem().paragraph(),
-                        phone = faker.phoneNumber().phoneNumber(),
-                        email = faker.internet().emailAddress(),
-                        website = faker.internet().domainName(),
-                        address = faker.address().fullAddress()
-                    )
-
+                val businessCard = BusinessCard(
+                    id = null,
+                    businessName = faker.company().name(),
+                    typeOfBusiness = faker.company().industry(),
+                    title = faker.job().title(),
+                    description = faker.lorem().paragraph(),
+                    phone = faker.phoneNumber().phoneNumber(),
+                    email = faker.internet().emailAddress(),
+                    website = faker.internet().domainName(),
+                    address = faker.address().fullAddress(),
+//                    latitude = Random.nextDouble(35.0, 36.0),
+//                    longitude = Random.nextDouble(94.0, 95.0)
                 )
-                Log.d("Business Added with business Name:", "Business Name: ${businesses[i].title}")
+                businessCardDao.insert(businessCard)
+                Log.d("Business Added with business Name:", "Business Name: ${businessCard.title}")
             }
+//            val businesses = mutableListOf<BusinessCard>()
+
+//            for (i in 1..8) {
+//                businesses.add(
+//                    BusinessCard(
+//                        id = null,
+//                        businessName = faker.company().name(),
+//                        typeOfBusiness = faker.company().industry(),
+//                        title = faker.job().title(),
+//                        description = faker.lorem().paragraph(),
+//                        phone = faker.phoneNumber().phoneNumber(),
+//                        email = faker.internet().emailAddress(),
+//                        website = faker.internet().domainName(),
+//                        address = faker.address().fullAddress()
+//                    )
+//
+//                )
+//                Log.d("Business Added with business Name:", "Business Name: ${businesses[i].title}")
+//            }
         }
     }
 }
