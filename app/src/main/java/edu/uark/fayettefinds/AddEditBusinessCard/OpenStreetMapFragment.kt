@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import edu.uark.fayettefinds.R
+import edu.uark.fayettefinds.Util.AddressOverlay
 import org.osmdroid.config.Configuration
 import org.osmdroid.library.BuildConfig
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
@@ -66,7 +67,7 @@ class OpenStreetMapFragment : Fragment(), Marker.OnMarkerClickListener {
         mMap.isTilesScaledToDpi = true
         mMap.setTileSource(TileSourceFactory.MAPNIK)
         mMap.setMultiTouchControls(false)
-        mMap.setBuiltInZoomControls(false)
+        mMap.setBuiltInZoomControls(true)
         mMap.isClickable = false
         mMap.isFocusable = false
         mMap.isFocusableInTouchMode = false
@@ -117,20 +118,22 @@ class OpenStreetMapFragment : Fragment(), Marker.OnMarkerClickListener {
         curLocation = geoPoint
         val mapController = mMap.controller
         mapController.setCenter(curLocation)
+        mapController.setZoom(15.0)
 
 
     }
 
-    fun addMarker(geoPoint: GeoPoint, id: Long) {
+    fun addMarker(geoPoint: GeoPoint, id: Long, address: String) {
         val startMarker = Marker(mMap)
         startMarker.position = geoPoint
         startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
         startMarker.setOnMarkerClickListener(this)
         startMarker.id = id.toString()
-
-
         startMarker.icon = ResourcesCompat.getDrawable(resources, R.drawable.map_pin_small, null)
         mMap.overlays.add(startMarker)
+
+        val addressOverlay = AddressOverlay(requireContext(), geoPoint, address)
+        mMap.overlays.add(addressOverlay)
 
     }
 

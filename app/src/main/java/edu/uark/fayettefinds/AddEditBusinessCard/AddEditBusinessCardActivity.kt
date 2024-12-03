@@ -1,6 +1,10 @@
 package edu.uark.fayettefinds.AddEditBusinessCard
 
+import android.content.Context
+import android.location.Address
+import android.location.Geocoder
 import android.nfc.NfcAdapter.EXTRA_ID
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
@@ -11,7 +15,13 @@ import edu.uark.fayettefinds.Repository.BusinessCard
 import android.widget.TextView
 import android.widget.ImageView
 import android.widget.Button
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentContainerView
+import edu.uark.fayettefinds.Util.LocationUtilCallback
+import edu.uark.fayettefinds.Util.createLocationCallback
+import edu.uark.fayettefinds.Util.createLocationRequest
+import edu.uark.fayettefinds.Util.replaceFragmentInActivity
+import org.osmdroid.util.GeoPoint
 
 class AddEditBusinessCardActivity: AppCompatActivity() {
     private lateinit var businessCardName: TextView
@@ -22,12 +32,15 @@ class AddEditBusinessCardActivity: AppCompatActivity() {
     private lateinit var btnHamburgerMenu: Button
     private lateinit var btnContact: Button
     private lateinit var fragmentContainerView: FragmentContainerView
+    private lateinit var geoPoint: GeoPoint
+    private lateinit var openStreetMapFragment: OpenStreetMapFragment
 
     private lateinit var businessCard: BusinessCard
 
     private val addEditBusinessCardViewModel: AddEditBusinessCardViewModel by viewModels {
         AddEditBusinessCardViewModel.AddEditBusinessCardViewModelFactory((application as FayetteFindsApplication).repository)
     }
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
@@ -43,7 +56,6 @@ class AddEditBusinessCardActivity: AppCompatActivity() {
         fragmentContainerView = findViewById(R.id.fragmentContainerView)
 
 
-
         val id = intent.getLongExtra(EXTRA_ID, -1)
         if (id == (-1).toLong()){
             populateNewBusinessCard()
@@ -56,9 +68,9 @@ class AddEditBusinessCardActivity: AppCompatActivity() {
 
     fun populateNewBusinessCard() {
         businessCard = BusinessCard(null, "", "", "", "", "", "", "", "")
-        updateViewUI()
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     fun populateExistingBusinessCard(id:Long)
     {
         addEditBusinessCardViewModel.start(id)
@@ -69,14 +81,45 @@ class AddEditBusinessCardActivity: AppCompatActivity() {
 //                businessImage.setImageResource(it.businessImage)
                 businessDescription.setText(it.description)
                 businessTitle.setText(it.title)
+                getGeoPointFromAddress(this, it.address) { geoPoint ->
+                    if (geoPoint != null) {
+                        runOnUiThread {
+                            openStreetMapFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView)
+                                    as OpenStreetMapFragment? ?:OpenStreetMapFragment.newInstance().also{
+                                replaceFragmentInActivity(it,R.id.fragmentContainerView)
+                            }
+                            openStreetMapFragment.changeCenterLocation(geoPoint)
+                            openStreetMapFragment.addMarker(geoPoint, it.id!!, it.address)
+                        }
+
+                    }
+                }
 
             }
-        }
+         }
     }
 
-    fun updateViewUI()
-    {
-        Log.d("Hell yeah", "Yay!")
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    fun getGeoPointFromAddress(context: Context, address: String, callback: (GeoPoint?) -> Unit) {
+        val geocoder = Geocoder(context)
+        val listener = @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+        object : Geocoder.GeocodeListener {
+            override fun onGeocode(addresses: List<Address>) {
+                if (addresses.isNotEmpty()) {
+                    val location = addresses[0]
+                    callback(GeoPoint(location.latitude, location.longitude))
+                } else {
+                    callback(null)
+                }
+            }
+
+            override fun onError(errorMessage: String?) {
+                Log.e("GeocodeError", errorMessage ?: "Unknown error")
+                callback(null)
+            }
+        }
+        geocoder.getFromLocationName(address, 1, listener)
     }
 
     companion object{
