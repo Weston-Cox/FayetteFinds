@@ -22,6 +22,8 @@
             android:exported="false" />
         <activity android:name=".ListBusinessCards.ListBusinessCardsActivity"
             android:exported="false" />
+        <activity android:name=".SettingsActivity"
+            android:exported="false"/>
         <activity
             android:name=".LoginPage.LoginPageActivity"
             android:exported="true"

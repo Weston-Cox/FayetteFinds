@@ -2,6 +2,7 @@ package edu.uark.fayettefinds.AddEditBusinessCard
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.location.Address
 import android.location.Geocoder
 import android.net.Uri
@@ -9,6 +10,7 @@ import android.nfc.NfcAdapter.EXTRA_ID
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import edu.uark.fayettefinds.FayetteFindsApplication
@@ -20,6 +22,7 @@ import android.widget.Button
 import android.widget.PopupMenu
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentContainerView
+import edu.uark.fayettefinds.SettingsActivity
 import edu.uark.fayettefinds.Util.LocationUtilCallback
 import edu.uark.fayettefinds.Util.createLocationCallback
 import edu.uark.fayettefinds.Util.createLocationRequest
@@ -40,6 +43,7 @@ class AddEditBusinessCardActivity: AppCompatActivity() {
     private lateinit var fragmentContainerView: FragmentContainerView
     private lateinit var geoPoint: GeoPoint
     private lateinit var openStreetMapFragment: OpenStreetMapFragment
+    private lateinit var sharedPreferences: SharedPreferences
 
     private lateinit var businessCard: BusinessCard
 
@@ -82,6 +86,24 @@ class AddEditBusinessCardActivity: AppCompatActivity() {
                 show()
             }
         }
+
+        btnHamburgerMenu.setOnClickListener {
+            PopupMenu(this, it).apply {
+                inflate(R.menu.hamburger_menu)
+                setOnMenuItemClickListener { item ->
+                    when (item.itemId) {
+                        R.id.action_suppport -> sendEmail("tsdodson@uark.edu")
+                        R.id.action_settings -> openSettings()
+                    }
+                    true
+                }
+                show()
+            }
+        }
+
+        sharedPreferences = getSharedPreferences("app_settings", Context.MODE_PRIVATE)
+        val fontSize = sharedPreferences.getInt("font_size", 14)
+        typeOfBusiness.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize.toFloat())
     }
 
     fun populateNewBusinessCard() {
@@ -184,6 +206,11 @@ class AddEditBusinessCardActivity: AppCompatActivity() {
 
     fun openWebsite(website: String) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(website))
+        startActivity(intent)
+    }
+
+    fun openSettings() {
+        val intent = Intent(this, SettingsActivity::class.java)
         startActivity(intent)
     }
 
