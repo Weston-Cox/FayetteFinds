@@ -1,8 +1,10 @@
 package edu.uark.fayettefinds.AddEditBusinessCard
 
 import android.content.Context
+import android.content.Intent
 import android.location.Address
 import android.location.Geocoder
+import android.net.Uri
 import android.nfc.NfcAdapter.EXTRA_ID
 import android.os.Build
 import android.os.Bundle
@@ -15,6 +17,7 @@ import edu.uark.fayettefinds.Repository.BusinessCard
 import android.widget.TextView
 import android.widget.ImageView
 import android.widget.Button
+import android.widget.PopupMenu
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentContainerView
 import edu.uark.fayettefinds.Util.LocationUtilCallback
@@ -29,6 +32,9 @@ class AddEditBusinessCardActivity: AppCompatActivity() {
     private lateinit var businessImage: ImageView
     private lateinit var businessDescription: TextView
     private lateinit var businessTitle: TextView
+    private lateinit var businessEmail: String
+    private lateinit var businessPhone: String
+    private lateinit var businessWebsite: String
     private lateinit var btnHamburgerMenu: Button
     private lateinit var btnContact: Button
     private lateinit var fragmentContainerView: FragmentContainerView
@@ -41,8 +47,7 @@ class AddEditBusinessCardActivity: AppCompatActivity() {
         AddEditBusinessCardViewModel.AddEditBusinessCardViewModelFactory((application as FayetteFindsApplication).repository)
     }
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_business_details_screen)
 
@@ -57,12 +62,25 @@ class AddEditBusinessCardActivity: AppCompatActivity() {
 
 
         val id = intent.getLongExtra(EXTRA_ID, -1)
-        if (id == (-1).toLong()){
+        if (id == (-1).toLong()) {
             populateNewBusinessCard()
-        }
-        else
-        {
+        } else {
             populateExistingBusinessCard(id)
+        }
+
+        btnContact.setOnClickListener {
+            PopupMenu(this, it).apply {
+                inflate(R.menu.contact_menu)
+                setOnMenuItemClickListener { item ->
+                    when (item.itemId) {
+                        R.id.action_email -> sendEmail(businessEmail)
+                        R.id.action_phone -> makePhoneCall(businessPhone)
+                        R.id.action_website -> openWebsite(businessWebsite)
+                    }
+                    true
+                }
+                show()
+            }
         }
     }
 
@@ -82,6 +100,10 @@ class AddEditBusinessCardActivity: AppCompatActivity() {
                 businessImage.setImageResource(resources.getIdentifier(imageResourceString, null, packageName))
                 businessDescription.setText(it.description)
                 businessTitle.setText(it.title)
+                businessEmail = it.email
+                businessPhone = it.phone
+                businessWebsite = it.website
+
                 getGeoPointFromAddress(this, it.address) { geoPoint ->
                     if (geoPoint != null) {
                         runOnUiThread {
@@ -136,6 +158,25 @@ class AddEditBusinessCardActivity: AppCompatActivity() {
             }
         }
         geocoder.getFromLocationName(address, 1, listener)
+    }
+
+    fun sendEmail(email: String) {
+        val intent = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse("mailto:$email")
+        }
+        startActivity(intent)
+    }
+
+    fun makePhoneCall(phone: String) {
+        val intent = Intent(Intent.ACTION_DIAL).apply {
+            data = Uri.parse("tel:$phone")
+        }
+        startActivity(intent)
+    }
+
+    fun openWebsite(website: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(website))
+        startActivity(intent)
     }
 
     companion object{

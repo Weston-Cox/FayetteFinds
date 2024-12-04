@@ -90,7 +90,7 @@ public abstract class FayetteFindsRoomDatabase : RoomDatabase() {
                     description = faker.lorem().paragraph(),
                     phone = faker.phoneNumber().phoneNumber(),
                     email = faker.internet().emailAddress(),
-                    website = faker.internet().domainName(),
+                    website = "https://google.com",
                     address = addresses[i-1],
 //                    latitude = Random.nextDouble(35.0, 36.0),
 //                    longitude = Random.nextDouble(94.0, 95.0)
@@ -98,25 +98,6 @@ public abstract class FayetteFindsRoomDatabase : RoomDatabase() {
                 businessCardDao.insert(businessCard)
                 Log.d("Business Added with business Name:", "Business Name: ${businessCard.title}")
             }
-//            val businesses = mutableListOf<BusinessCard>()
-
-//            for (i in 1..8) {
-//                businesses.add(
-//                    BusinessCard(
-//                        id = null,
-//                        businessName = faker.company().name(),
-//                        typeOfBusiness = faker.company().industry(),
-//                        title = faker.job().title(),
-//                        description = faker.lorem().paragraph(),
-//                        phone = faker.phoneNumber().phoneNumber(),
-//                        email = faker.internet().emailAddress(),
-//                        website = faker.internet().domainName(),
-//                        address = faker.address().fullAddress()
-//                    )
-//
-//                )
-//                Log.d("Business Added with business Name:", "Business Name: ${businesses[i].title}")
-//            }
         }
     }
 }

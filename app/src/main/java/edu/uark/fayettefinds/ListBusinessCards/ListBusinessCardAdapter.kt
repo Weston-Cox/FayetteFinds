@@ -85,10 +85,10 @@ class ListBusinessCardAdapter(val onItemClicked:(itemId:Long)->Unit)
         private fun shareTask(businessCard: BusinessCard) {
             val shareIntent = Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, "Task: ${businessCard.title}\nDetails: ${businessCard.description}\nDeadline: ${businessCard.businessName}\nComplete: ${businessCard.address}")
+                putExtra(Intent.EXTRA_TEXT, "Business: ${businessCard.title}\nDescription: ${businessCard.description}\n")
                 type = "text/plain"
             }
-            itemView.context.startActivity(Intent.createChooser(shareIntent, "Share task via"))
+            itemView.context.startActivity(Intent.createChooser(shareIntent, "Share business via"))
         }
 
 
