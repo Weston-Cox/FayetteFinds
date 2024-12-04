@@ -78,7 +78,8 @@ class AddEditBusinessCardActivity: AppCompatActivity() {
             if(it != null) {
                 businessCardName.setText(it.businessName)
                 typeOfBusiness.setText(it.typeOfBusiness)
-//                businessImage.setImageResource(it.businessImage)
+                val imageResourceString = getImageResourceGivenId(it.id!!)
+                businessImage.setImageResource(resources.getIdentifier(imageResourceString, null, packageName))
                 businessDescription.setText(it.description)
                 businessTitle.setText(it.title)
                 getGeoPointFromAddress(this, it.address) { geoPoint ->
@@ -97,6 +98,21 @@ class AddEditBusinessCardActivity: AppCompatActivity() {
 
             }
          }
+    }
+
+
+    fun getImageResourceGivenId(id: Long): String {
+        return when (id) {
+            1L -> "@drawable/research_company"
+            2L -> "@drawable/computer_hardware"
+            3L -> "@drawable/government_admin"
+            4L -> "@drawable/graphic_design"
+            5L -> "@drawable/animation"
+            6L -> "@drawable/import_export"
+            7L -> "@drawable/libraries"
+            8L -> "@drawable/veterinarian"
+            else -> "@drawable/placeholder_image"
+        }
     }
 
 
