@@ -104,13 +104,6 @@ class ListBusinessCardsActivity : AppCompatActivity() {
             finish()
         }
 
-
-
-
-
-//        val itemTouchHelper = ItemTouchHelper(SwipeCallback(adapter, taskViewModel, userID!!))
-//        itemTouchHelper.attachToRecyclerView(recyclerView)
-
     }
 
     companion object{

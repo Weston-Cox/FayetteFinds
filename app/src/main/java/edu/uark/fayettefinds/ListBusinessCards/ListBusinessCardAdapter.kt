@@ -24,16 +24,6 @@ class ListBusinessCardAdapter(val onItemClicked:(itemId:Long)->Unit)
 
 
     override fun onBindViewHolder(holder: BusinessCardViewHolder, position: Int) {
-//        val current = getItem(position)
-//        current.id?.let {
-//            holder.bind(it, current.title)
-//        }
-//        holder.itemView.tag = current.id
-//        holder.itemView.setOnClickListener {
-//            val itemId = it.tag
-//            Log.d("ListBusinessCardAdapter", "Item Clicked: $itemId")
-//        }
-
         val current = getItem(position)
         holder.itemView.setOnClickListener {
             current.id?.let { it1 -> onItemClicked(it1) }

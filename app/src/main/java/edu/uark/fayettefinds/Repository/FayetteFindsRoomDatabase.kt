@@ -76,12 +76,20 @@ public abstract class FayetteFindsRoomDatabase : RoomDatabase() {
                 "2615 S School Ave, Fayetteville, AR 72701",
                 "801 W Clydesdale Dr, Fayetteville, AR 72701",
                 "1100 N College Ave, Fayetteville, AR 72703",
-                "4127 W Wedington Dr, Fayetteville, AR 72704"
+                "4127 W Wedington Dr, Fayetteville, AR 72704",
+                "123 W Dickson St, Fayetteville, AR 72701",
+                "1 University of Arkansas Fayetteville, AR 72701",
+                "1255 S Razorback Rd, Fayetteville, AR 72701",
+                "1270 Nolan Richardson Dr, Fayetteville, AR 72701",
+                "350 N Razorback Rd, Fayetteville, AR 72701",
+                "1788 M.L.K. Jr Blvd, Fayetteville, AR 72701",
+                "2615 S School Ave, Fayetteville, AR 72701",
+                "2875 M.L.K. Jr Blvd, Fayetteville, AR 72704"
             )
 
             val faker = Faker()
 
-            for (i in 1..8) {
+            for (i in 1..16) {
                 val businessCard = BusinessCard(
                     id = null,
                     businessName = faker.company().name(),
@@ -91,9 +99,7 @@ public abstract class FayetteFindsRoomDatabase : RoomDatabase() {
                     phone = faker.phoneNumber().phoneNumber(),
                     email = faker.internet().emailAddress(),
                     website = "https://google.com",
-                    address = addresses[i-1],
-//                    latitude = Random.nextDouble(35.0, 36.0),
-//                    longitude = Random.nextDouble(94.0, 95.0)
+                    address = addresses[i-1]
                 )
                 businessCardDao.insert(businessCard)
                 Log.d("Business Added with business Name:", "Business Name: ${businessCard.title}")
