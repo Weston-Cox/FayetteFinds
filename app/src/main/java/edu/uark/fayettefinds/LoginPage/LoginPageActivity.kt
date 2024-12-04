@@ -31,6 +31,8 @@ class LoginPageActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_login_page)
 
+//        deleteDatabase(this)
+
         etEmail = findViewById(R.id.etEmail)
         etPassword = findViewById(R.id.etPassword)
 
@@ -58,5 +60,9 @@ class LoginPageActivity : AppCompatActivity() {
         val launchTaskListIntent = Intent(this, ListBusinessCardsActivity::class.java)
         startActivity(launchTaskListIntent)
         finish()
+    }
+
+    fun deleteDatabase(context: Context): Unit {
+        context.deleteDatabase("businesscard_database")
     }
 }
