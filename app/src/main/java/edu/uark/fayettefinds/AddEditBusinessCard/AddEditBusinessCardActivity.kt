@@ -135,7 +135,7 @@ class AddEditBusinessCardActivity: AppCompatActivity() {
             8L -> "@drawable/veterinarian"
             9L -> "@drawable/google_headquarters"
             10L -> "@drawable/jedi_temple"
-            11L -> "@drawable/mount_krumpet"
+            11L -> "@drawable/mount_krumpt"
             12L -> "@drawable/old_main"
             13L -> "@drawable/the_pentagon"
             14L -> "@drawable/walmart"
