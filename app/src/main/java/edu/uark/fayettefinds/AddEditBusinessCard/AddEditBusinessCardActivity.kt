@@ -21,6 +21,7 @@ import android.widget.Button
 import android.widget.PopupMenu
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentContainerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import edu.uark.fayettefinds.SettingsActivity
 import edu.uark.fayettefinds.Util.replaceFragmentInActivity
 import org.osmdroid.util.GeoPoint
@@ -35,6 +36,7 @@ class AddEditBusinessCardActivity: AppCompatActivity() {
     private lateinit var businessPhone: String
     private lateinit var businessWebsite: String
     private lateinit var btnHamburgerMenu: Button
+    private lateinit var btnExit: FloatingActionButton
     private lateinit var btnContact: Button
     private lateinit var fragmentContainerView: FragmentContainerView
     private lateinit var geoPoint: GeoPoint
@@ -59,7 +61,7 @@ class AddEditBusinessCardActivity: AppCompatActivity() {
         btnHamburgerMenu = findViewById(R.id.btnHamburgerMenu)
         btnContact = findViewById(R.id.btnContact)
         fragmentContainerView = findViewById(R.id.fragmentContainerView)
-
+        btnExit = findViewById(R.id.fabExit)
 
         val id = intent.getLongExtra(EXTRA_ID, -1)
         if (id == (-1).toLong()) {
@@ -81,6 +83,9 @@ class AddEditBusinessCardActivity: AppCompatActivity() {
                 }
                 show()
             }
+        }
+        btnExit.setOnClickListener {
+            finish()
         }
 
         btnHamburgerMenu.setOnClickListener {
