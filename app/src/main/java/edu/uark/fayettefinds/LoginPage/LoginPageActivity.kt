@@ -50,6 +50,7 @@ class LoginPageActivity : AppCompatActivity() {
         }
     }
 
+
     fun loginUser(email:String, password:String): Unit {
         if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Please enter email and password.", Toast.LENGTH_LONG).show()
