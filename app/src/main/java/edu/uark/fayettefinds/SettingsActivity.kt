@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.TypedValue
+import android.widget.Button
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +18,10 @@ class SettingsActivity : AppCompatActivity() {
 
         sharedPreferences = getSharedPreferences("app_settings", Context.MODE_PRIVATE)
 
+        val applyButton = findViewById<Button>(R.id.applyButton)
+
         val fontSizePreviewTextView = findViewById<TextView>(R.id.fontSizePreviewTextView)
+
         val fontSizeSeekBar = findViewById<SeekBar>(R.id.fontSizeSeekBar)
         fontSizeSeekBar.progress = sharedPreferences.getInt("font_size", 14) // Default font size
 
@@ -36,5 +40,14 @@ class SettingsActivity : AppCompatActivity() {
                 sharedPreferences.edit().putInt("font_size", fontSize).apply()
             }
         })
+
+        applyButton.setOnClickListener {
+            // Save font size to SharedPreferences
+            val fontSize = fontSizeSeekBar.progress
+            sharedPreferences.edit().putInt("font_size", fontSize).apply()
+
+            // Finish the activity
+            finish()
+        }
     }
 }

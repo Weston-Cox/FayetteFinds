@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import android.location.Address
 import android.location.Geocoder
 import android.net.Uri
-import android.nfc.NfcAdapter.EXTRA_ID
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -23,9 +22,6 @@ import android.widget.PopupMenu
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentContainerView
 import edu.uark.fayettefinds.SettingsActivity
-import edu.uark.fayettefinds.Util.LocationUtilCallback
-import edu.uark.fayettefinds.Util.createLocationCallback
-import edu.uark.fayettefinds.Util.createLocationRequest
 import edu.uark.fayettefinds.Util.replaceFragmentInActivity
 import org.osmdroid.util.GeoPoint
 
@@ -100,8 +96,11 @@ class AddEditBusinessCardActivity: AppCompatActivity() {
                 show()
             }
         }
+    }
 
-        sharedPreferences = getSharedPreferences("app_settings", Context.MODE_PRIVATE)
+    override fun onResume() {
+        super.onResume()
+        sharedPreferences = getSharedPreferences("app_settings", MODE_PRIVATE)
         val fontSize = sharedPreferences.getInt("font_size", 14)
         typeOfBusiness.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize.toFloat())
     }
