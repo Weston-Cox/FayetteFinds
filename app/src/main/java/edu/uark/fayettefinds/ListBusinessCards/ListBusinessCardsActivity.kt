@@ -90,14 +90,6 @@ class ListBusinessCardsActivity : AppCompatActivity() {
             }
         })
 
-
-
-
-        val fab = findViewById<FloatingActionButton>(R.id.fabAddTask)
-        fab.setOnClickListener {
-            startAddEditBusinessCardsActivity.launch(Intent(this, AddEditBusinessCardActivity::class.java))
-        }
-
         findViewById<FloatingActionButton>(R.id.fabLogout).setOnClickListener {
             val intent = Intent(this@ListBusinessCardsActivity, LoginPageActivity::class.java)
             startActivity(intent)
