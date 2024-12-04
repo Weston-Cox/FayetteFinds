@@ -30,23 +30,6 @@ class AddEditBusinessCardViewModel(private val repository: FayetteFindsRepositor
         }
     }
 
-
-    //TODO:: delete??
-//    fun deleteBusinessCard() {
-//        viewModelScope.launch {
-//            businessCard.value?.id?.let {repository.}
-//        }
-//    }
-
-
-    //TODO:: update??
-//    fun updateBusinessCard(businessCard: BusinessCard)
-//    {
-//        viewModelScope.launch {
-//            repository.
-//        }
-//    }
-
     class AddEditBusinessCardViewModelFactory(private val repository: FayetteFindsRepository) : ViewModelProvider.Factory{
 
         override fun <T: ViewModel> create(modelClass: Class<T>): T{

@@ -73,9 +73,6 @@ class OpenStreetMapFragment : Fragment(), Marker.OnMarkerClickListener {
         mMap.isFocusableInTouchMode = false
         addCopyrightOverlay()
         addLocationOverlay()
-        //addCompassOverlay()
-//        addMapScaleOverlay()
-//        addRotationOverlay()
     }
 
     private fun addRotationOverlay() {
@@ -153,12 +150,6 @@ class OpenStreetMapFragment : Fragment(), Marker.OnMarkerClickListener {
     }
 
     override fun onMarkerClick(marker: Marker?, mapView: MapView?): Boolean {
-//        val intent = Intent(context, GeoPhotoActivity::class.java)
-//        intent.putExtra("id", marker?.id?.toLong())
-//        intent.putExtra("LATITUDE", marker?.position?.latitude)
-//        intent.putExtra("LONGITUDE", marker?.position?.longitude)
-//        Log.d("OpenStreetMapFragment", "Marker clicked: ${marker?.id}")
-//        startActivity(intent)
         return true
     }
 

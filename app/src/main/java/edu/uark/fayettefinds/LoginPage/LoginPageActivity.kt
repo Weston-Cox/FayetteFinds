@@ -31,8 +31,6 @@ class LoginPageActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_login_page)
 
-//        deleteDatabase(this)
-
         etEmail = findViewById(R.id.etEmail)
         etPassword = findViewById(R.id.etPassword)
 
@@ -49,13 +47,6 @@ class LoginPageActivity : AppCompatActivity() {
             insets
         }
     }
-
-
-    // DO NOT USE THIS FUNCTION UNLESS YOU NEED TO DELETE THE DATABASE
-    fun deleteDatabase(context: Context) {
-        context.deleteDatabase("businesscard_database")
-    }
-
 
     fun loginUser(email:String, password:String): Unit {
         if (email.isEmpty() || password.isEmpty()) {

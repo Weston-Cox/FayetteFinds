@@ -133,6 +133,14 @@ class AddEditBusinessCardActivity: AppCompatActivity() {
             6L -> "@drawable/import_export"
             7L -> "@drawable/libraries"
             8L -> "@drawable/veterinarian"
+            9L -> "@drawable/veterinarian"
+            10L -> "@drawable/veterinarian"
+            11L -> "@drawable/veterinarian"
+            12L -> "@drawable/veterinarian"
+            13L -> "@drawable/veterinarian"
+            14L -> "@drawable/veterinarian"
+            15L -> "@drawable/veterinarian"
+            16L -> "@drawable/veterinarian"
             else -> "@drawable/placeholder_image"
         }
     }

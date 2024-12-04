@@ -61,7 +61,7 @@ public abstract class FayetteFindsRoomDatabase : RoomDatabase() {
             super.onCreate(db)
             INSTANCE?.let { database ->
                 scope.launch {
-//                    database.businessCardDao().deleteAll()
+                    database.businessCardDao().deleteAll()
                     populateDatabase(database.businessCardDao())
                 }
             }
