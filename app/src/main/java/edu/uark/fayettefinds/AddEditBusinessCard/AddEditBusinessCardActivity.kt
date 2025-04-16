@@ -163,10 +163,10 @@ class AddEditBusinessCardActivity: AppCompatActivity() {
             10L -> "@drawable/jedi_temple"
             11L -> "@drawable/mount_krumpt"
             12L -> "@drawable/old_main"
-            13L -> "@drawable/the_pentagon"
+            13L -> "@drawable/libraries"
             14L -> "@drawable/walmart"
             15L -> "@drawable/canes"
-            16L -> "@drawable/city_wok"
+            16L -> "@drawable/import_export"
             else -> "@drawable/placeholder_image"
         }
     }

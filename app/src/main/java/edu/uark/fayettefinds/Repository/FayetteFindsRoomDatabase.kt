@@ -97,7 +97,7 @@ public abstract class FayetteFindsRoomDatabase : RoomDatabase() {
                     title = faker.job().title(),
                     description = faker.lorem().paragraph(),
                     phone = faker.phoneNumber().phoneNumber(),
-                    email = faker.internet().emailAddress(),
+                    email = "fakeemail@fakeemail.com",
                     website = "https://google.com",
                     address = addresses[i-1]
                 )
